@@ -1,41 +1,38 @@
-# Instagram Filters Using Computer Vision
+# Filtros de realidad aumentada usando visión por computador
+Implementación de filtros de rostro de realidad aumentada usando OpenCV y Java
  
-Creating Instagram-like filters using Java and OpenCV (With the help of the tutorial: https://www.youtube.com/watch?v=R6wgJ6epakU made by [Gabriela Solano](https://github.com/GabySol))
+### Requerimientos previos
+Para ejecutar este proyecto es necesario instalar OpenCV versión 4.6.0 en el IDE en el que se desee ejecutar.
  
- 
-### Previous requirements
-In order to run this project it is necessary to install OpenCV version 4.6.0 in the IDE in which you want to run it.
- 
-### Introduction
-* Goal: The objective of this project is to try to understand how the filters used by the Instagram social network work, such as those in which personal items are added to the user's face (glasses, hats, etc.) as well as provide some functionalities that are not present in the OpenCV 4.6 package for Java.
+### Introducción
+* **Objetivo:** El objetivo de este proyecto es intentar comprender cómo funcionan los filtros de realidad aumentada usados en redes sociales, como aquellos en los que se añaden elementos personales al rostro del usuario (gafas, sombreros, etc.), así como proporcionar algunas funcionalidades que no están presentes en el paquete OpenCV 4.6 para Java.
 
-* Theoretical framework:
-The Haar-Like features receive their name due to the similarity they have with the Haar wavelets introduced in [1], this feature considers two adjacent rectangular regions in an image, in these regions the difference between the sum of all the pixels is calculated of each one. Adjacent regions are the same size and shape. Characteristics of 3 rectangles and 4 rectangles [2] are also considered, in the first of these the sum of two outer rectangles is calculated and from this value the sum of the pixels within a central rectangle is subtracted, in that of 4 rectangles the difference between diagonal pairs of rectangles is performed. The mentioned regions are shown in the following figure.
+* **Marco teórico:** Las características tipo Haar reciben su nombre debido a su similitud con las wavelets de Haar introducidas en [1]. Esta característica considera dos regiones rectangulares adyacentes en una imagen, donde se calcula la diferencia entre la suma de todos los píxeles de cada una. Las regiones adyacentes tienen el mismo tamaño y forma. También se consideran las características de 3 y 4 rectángulos [2]. En la primera, se calcula la suma de los dos rectángulos exteriores y a este valor se le resta la suma de los píxeles dentro de un rectángulo central; en la de 4 rectángulos, se calcula la diferencia entre pares diagonales de rectángulos. Las regiones mencionadas se muestran en la siguiente figura.
 
-    ![Figure 1](https://github.com/Samvel24/Filtros-Instagram/blob/master/ImagenesEjemplo/Figura1.png)
-    **Figure 1. Haar features of 2, 3 and 4 rectangles respectively**
+    ![Figura 1](/ImagenesEjemplo/Figura1.png)
+    **Figura 1. Características de Haar de 2, 3 y 4 rectángulos respectivamente**
 
-    In [2] these characteristics are used to detect faces and the integral image is used to calculate them quickly. An example of using these features is shown in figure 2, in this example, the difference in intensity between the eye region and the nose region is measured. Accordingly, these characteristics allow to categorize small sections of an image and, in the case of figure 2, to classify some features of the face.
+    En [2], estas características se utilizan para detectar rostros y la imagen integral se emplea para calcularlas rápidamente. En la figura 2 se muestra un ejemplo del uso de estas características, donde se mide la diferencia de intensidad entre la región de los ojos y la región de la nariz. De este modo, estas características permiten categorizar pequeñas secciones de una imagen y, en el caso de la figura 2, clasificar algunos rasgos del rostro.
 
-    ![Figure 2](https://github.com/Samvel24/Filtros-Instagram/blob/master/ImagenesEjemplo/Figura2.png)
-    **Figure 2. Haar features used in the classification of facial features**
+    ![Figura 2](/ImagenesEjemplo/Figura2.png)
+    **Figura 2. Características de Haar utilizadas en la clasificación de rasgos faciales**
 
-    The above is important because it will allow us to detect the eyes and the face that come from the camera image and that we can implement through OpenCV using the CascadeClassifier class and an xml file that contains a previously trained Haar classifier.
+    Lo anterior es importante porque nos permitirá detectar los ojos y el rostro que provienen de la imagen de la cámara y que podemos implementar a través de OpenCV usando la clase CascadeClassifier y un archivo xml que contiene un clasificador Haar previamente entrenado.
 
-### Contributions added to this project
-* Use of the StretchIcon class so that the camera image is displayed completely inside the JLabel (and according to the size of the JLabel) and in this way simulate the use of the flags:
+### Contribuciones añadidas a este proyecto
+* Uso de la clase StretchIcon para que la imagen de la cámara se muestre completamente dentro del JLabel (y de acuerdo al tamaño del JLabel) y de esta manera simular el uso de las banderas:
     - WINDOW_KEEPRATIO
     - WND_PROP_ASPECT_RATIO
     
-    described in https://docs.opencv.org/4.x/d0/d90/group__highgui__window__flags.html.
+    descritas en https://docs.opencv.org/4.x/d0/d90/group__highgui__window__flags.html.
     
-    Note: At this time, these flags are not available in the OpenCV 4.6 package for Java.
+    Nota: En este momento, estas opciones no están disponibles en el paquete OpenCV 4.6 para Java.
     
-    To complement what was previously described, a sequence of processes similar to the one provided by HighGui.imshow() and HighGui.waitKey() was used to be able to resize the image inside the JLabel object and that will allow us to visualize the camera image with the best possible quality.
+    Para complementar lo descrito anteriormente, se utilizó una secuencia de procesos similar a la proporcionada por HighGui.imshow() y HighGui.waitKey() para poder redimensionar la imagen dentro del objeto JLabel y que nos permitirá visualizar la imagen de la cámara con la mejor calidad posible..
 
-* The functionality of adding lenses in the area of the detected eyes with the help of the CascadeClassifier class has been implemented.
+* Se ha implementado la funcionalidad de agregar lentes en el área de los ojos detectados con la ayuda de la clase CascadeClassifier.
 
-### References
+### Referencias
 * [1] Haar, A., Zur theorie der orthogonalen funktionensysteme. Mathematische Annalen, 1910.
 * [2] Viola, P., Jones, M., Rapid object detection using a boosted cascade of simple features, IEEE Conf. on Computer Vision and Pattern Recognition, 2001.
 
